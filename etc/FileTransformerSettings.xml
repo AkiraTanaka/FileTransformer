@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<FileTransformer>
+	<baseTransform inboundFolder="inbound" outboundFolder="outbound">
+		<transform inboundFile="RequestA" outboundFile="RequestB" transformerClass="net.at.tools.transform.transformer.RequestAToBTransformer" />
+	</baseTransform>
+	<files>
+		<file id="RequestA" nameRegix="REQUEST_A.txt" delimiter="" title="リクエストファイルA" charCode="Shift-JIS" lineFeedCode="CRLF" >
+			<dataGroup type="header" primaryKeyNo="1" primaryKeyValue="1" >
+				<data no="1" key="Code Division" name="レコード区分" type="9" maxByte="1" />
+				<data no="2" key="Dummy" name="予備" type="X" maxByte="84" />
+			</dataGroup>
+			<dataGroup type="body" primaryKeyNo="1" primaryKeyValue="2" >
+				<data no="1" key="Code Division" name="レコード区分" type="9" maxByte="1" />
+				<data no="2" key="Billing Amount" name="金額" type="X" maxByte="10" />
+				<data no="3" key="Result Code" name="結果コード" type="X" maxByte="1" />
+				<data no="4" key="Dummy" name="予備" type="X" maxByte="73" />
+			</dataGroup>
+			<dataGroup type="trailer" primaryKeyNo="1" primaryKeyValue="8" >
+				<data no="1" key="Code Division" name="レコード区分" type="9" maxByte="1" />
+				<data no="2" key="Total Count" name="合計件数" type="9" maxByte="6" />
+				<data no="3" key="Total Amount" name="合計金額" type="9" maxByte="12" />
+				<data no="4" key="Success Count" name="成功合計件数" type="9" maxByte="6" />
+				<data no="5" key="Success Amount" name="成功合計金額" type="9" maxByte="12" />
+				<data no="6" key="Failure Count" name="失敗合計件数" type="9" maxByte="6" />
+				<data no="7" key="Failure Amount" name="失敗合計金額" type="9" maxByte="12" />
+				<data no="8" key="Dummy" name="予備" type="X" maxByte="30" />
+			</dataGroup>
+			<dataGroup type="end" primaryKeyNo="1" primaryKeyValue="9" >
+				<data no="1" key="Code Division" name="レコード区分" type="9" maxByte="1" />
+				<data no="2" key="Dummy" name="ダミー" type="X" maxByte="84" />
+			</dataGroup>
+		</file>
+		<file id="RequestB" nameRegix="REQUEST_B_{YYYYMMDD}.CSV" delimiter="," enclosure="&quot;" title="リクエストBファイル" charCode="Shift-JIS" lineFeedCode="CRLF" >
+			<dataGroup type="header">
+				<data no="1" key="Code Division" name="レコード区分" type="X" maxByte="1" fixedValue="1" />
+				<data no="2" key="Create Date" name="作成日" type="X" maxByte="8" fixedValue="{YYYYMMDD}" />
+			</dataGroup>
+			<dataGroup type="body">
+				<data no="1" key="Code Division" name="レコード区分" type="X" maxByte="1" fixedValue="2" />
+ 			 	<data no="2" key="Billing Amount" name="ご請求金額" type="9" maxByte="9" refId="Billing Amount" trimFlag="true" />
+				<data no="3" key="Result Code" name="結果コード" type="X" maxByte="1" refId="Result Code" />
+			</dataGroup>
+			<dataGroup type="trailer">
+				<data no="1" key="Code Division" name="レコード区分" type="X" maxByte="1" fixedValue="8" />
+				<data no="2" key="Total Count" name="総件数" type="X" maxByte="9" />
+				<data no="5" key="Total Amount" name="総金額" type="X" maxByte="11" />
+			</dataGroup>
+			<dataGroup type="end">
+				<data no="1" key="Code Division" name="レコード区分" type="X" maxByte="1" fixedValue="9" />
+			</dataGroup>
+		</file>
+	</files>
+ </FileTransformer>
